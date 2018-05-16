@@ -1,4 +1,5 @@
 # -*- coding=utf-8 -*-
+# Auth: mxw
 
 #登陆程序，从文件中读取用户名和密码，判断用户输入的用户名和密码是否正确，如果错误三次锁定
 #文件格式如下
@@ -23,7 +24,7 @@ f = open("shadow.bk","r",encoding="utf-8")
 #循环遍历文件,将每一行文件内容，以:切片，增加字典内容
 for line in f:
     line = line.strip()
-    LogMsg[line[0:line.find(":")]] = line[line.find(":")+1 :line.find(" ")]
+    LogMsg[line[0:line.find(":")]] = line[line.find(":")+1 :line.find(" ")]#字典的追加
     LogFalseMsg[line[0:line.find(":")]] = int(line[line.find("false=") + 6: ])
 
 f.close()
@@ -48,7 +49,7 @@ while True:
             if(err_cnt >= 3):
                 print("用户已锁定\n")
                 break;
-
+    #当前用户失败次数大于等于三次，退出循环
     if(err_cnt >= 3):
         break
 
@@ -64,7 +65,7 @@ while True:
         #遍历字典，更新登陆失败次数
         for key in LogMsg:
             if username == key:
-                LogFalseMsg[key] += 1
+                LogFalseMsg[key] += 1#字典的修改
 
         err_cnt += 1
         print("sorry! username or password erro, times = %s !!" %err_cnt)
@@ -87,7 +88,7 @@ with open("shadow","w+") as fwrite , open("shadow.bk","r+") as fread:
     for line in fread:
         user =  line[0 : line.index(":")]
         if "false=" in line and user in LogFalseMsg:
-            line_new = line[0 : line.index("false=")] + "false=%s\n"%LogFalseMsg[user]
+            line_new = line[0 : line.index("false=")] + "false=%s\n"%LogFalseMsg[user]#字符串拼接
             fwrite.write(line_new)
 
 

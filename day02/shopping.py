@@ -11,11 +11,11 @@ shopping_list = []
 print(product_list)
 
 salary = input("you salary:")
-if salary.isdigit():
+if salary.isdigit():#是否为数字
     salary = int(salary)
     #print(salary)
     while True:
-        for item in product_list:
+        for item in product_list:#打印商品列表
             print(product_list.index(item),item)
         choise = input("choice numbe to put in shoping car:")
         if choise.isdigit():
@@ -23,7 +23,7 @@ if salary.isdigit():
             if choise >= 0 and choise < len(product_list):
                 if salary > product_list[choise][1]:
                     salary = salary - product_list[choise][1]
-                    shopping_list.append(product_list[choise])
+                    shopping_list.append(product_list[choise])#追加到购物车列表
                     print("you balance = ",salary)
                 else:
                     print("you balance is not to pay")
